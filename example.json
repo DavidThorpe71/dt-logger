@@ -1,0 +1,53 @@
+
+{
+  "applicationName": "x-proxy",
+  "correlationId": "1234",
+  "calls": [
+    {
+      "order": 1,
+      "context": "xProxy.Run",
+      "args": {
+        "request": "__REQUEST_ARG_OBJECT_HERE__"
+      },
+      "calls": [
+        {
+          "order": 1,
+          "context": "inputMapper.getTokenFromRequest",
+          "args": {
+            "request": "__REQUEST_ARG_OBJECT_HERE__"
+          },
+          "response": {
+            "response": "abcd",
+            "line": 10
+          }
+        },
+        {
+          "order": 2,
+          "context": "account.AuthenticateToken",
+          "args": {
+            "token": "abcd"
+          },
+          "calls": [
+            {
+              "order": 1,
+              "context": "httpClient.DoRequest",
+              "args": {
+                "method": "GET",
+                "path": "/token?authToken=abcd"
+              },
+              "response": {
+                "body": {
+                  "accountToken": "67ef",
+                  "line": 8
+                }
+              }
+            }
+          ],
+          "response": {
+            "accountToken": "67ef"
+          }
+        }
+      ]
+    }
+  ]
+}
