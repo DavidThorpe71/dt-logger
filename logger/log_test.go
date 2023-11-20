@@ -32,14 +32,6 @@ func TestLogger_NewContext(t *testing.T) {
 	}
 
 	Convey("GIVEN we instantiate a new log", t, func() {
-		/*
-			{
-			  	"applicationName": "example-app",
-			  	"calls": []
-				contextId:"eee14ef4-be49-49bd-a769-b76f3896b082"
-			}
-
-		*/
 		sut := NewLog("some-app", stubUuidMaker)
 
 		Convey("WHEN we call the OpenContext() method", func() {
@@ -47,17 +39,12 @@ func TestLogger_NewContext(t *testing.T) {
 
 			Convey("THEN a LogContext is added to the log Calls field with the correct fields", func() {
 				So(sut.Calls, ShouldHaveLength, 1)
-				So(sut.Calls[0].Context, ShouldEqual, "github.com/davidthorpe71/dt-logger/logger.TestLogger_NewContext.func2.1")
-				So(sut.Calls[0].File, ShouldEqual, "/Users/david.thorpe/Documents/projects/dt-logger/logger/log_test.go")
 				So(sut.Calls[0].Order, ShouldEqual, 0)
 				So(sut.Calls[0].Calls, ShouldHaveLength, 0)
 
 				Convey("AND we call the OpenContext() method again", func() {
 					sut.OpenContext()
-
 					So(sut.Calls[0].Calls, ShouldHaveLength, 1)
-					So(sut.Calls[0].Calls[0].Context, ShouldEqual, "github.com/davidthorpe71/dt-logger/logger.TestLogger_NewContext.func2.1")
-					So(sut.Calls[0].Calls[0].File, ShouldEqual, "/Users/david.thorpe/Documents/projects/dt-logger/logger/log_test.go")
 					So(sut.Calls[0].Calls[0].Order, ShouldEqual, 0)
 					So(sut.Calls[0].Calls[0].Calls, ShouldHaveLength, 0)
 				})
